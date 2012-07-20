@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title></title>
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endblock css %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/zepto.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/backbone-min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    <!-- Templates -->
+
+    <script type="text/template" id="post-template">
+        <div class="view">
+            <span><%= text %></span>
+        </div>
+    </script>
+
+</head>
+<body>
+{% block body %}
+<div id="content">
+    <div id="feed"></div>
+</div>
+{% endblock body %}
+</body>
+</html>
