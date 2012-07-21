@@ -1,10 +1,18 @@
 $(function(){
 
     var Post = Backbone.Model.extend({
-        url: '/post',
+    
+        base_url: function() {
+            var temp_url = Backbone.Model.prototype.url.call(this);
+            return (temp_url.charAt(temp_url.length - 1) == '/' ? temp_url : temp_url+'/');
+        },
+
+        url: function() {
+            return this.base_url();
+        },
+
         defaults: function() {
             return {
-                _id: 0,
                 text: ""
             };
         },
@@ -21,13 +29,13 @@ $(function(){
 
     var PostCollection = Backbone.Collection.extend({
 
-        url: '/posts',
+        url: '/api/v1/post/',
 
         model: Post,
 
         parse: function(response) {
-            console.log(response.posts);
-            return response.posts;
+            console.log(response.objects);
+            return response.objects;
         }
 
     });
@@ -41,6 +49,11 @@ $(function(){
 
         template: _.template($('#post-template').html()),
 
+        events: {
+            "click .text":  "editText",
+            "keypress .edit_text":  "saveText"
+        },
+
         initialize: function() {
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
@@ -49,7 +62,19 @@ $(function(){
         render: function() {
             console.log(this.model.toJSON());
             this.$el.html(this.template(this.model.toJSON()));
+            this.edit_input = this.$('.edit_text');
             return this;
+        },
+
+        editText: function(){
+            this.edit_input.show();
+            this.edit_input.focus();
+        },
+
+        saveText: function(e){
+            if (e.keyCode != 13) { return; }
+            this.model.save({text: this.edit_input.val()});
+            this.edit_input.hide();
         }
 
     });

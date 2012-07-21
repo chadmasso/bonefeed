@@ -1,3 +1,4 @@
+{% load static from staticfiles %}
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -5,18 +6,19 @@
 
     <title></title>
     {% block css %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     {% endblock css %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/zepto.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/backbone-min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script type="text/javascript" src="{% static 'js/zepto.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/underscore-min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/backbone-min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
 
     <!-- Templates -->
 
     <script type="text/template" id="post-template">
-        <div class="view" id="<%= _id %>">
-            <span><%= text %></span>
+        <div class="view" >
+            <span class="text"><%= text %></span>
+            <input type="text" class="edit_text" value="<%= text %>" style="display:none">
         </div>
     </script>
 
