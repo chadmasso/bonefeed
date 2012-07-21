@@ -15,7 +15,7 @@
     <!-- Templates -->
 
     <script type="text/template" id="post-template">
-        <div class="view">
+        <div class="view" id="<%= _id %>">
             <span><%= text %></span>
         </div>
     </script>
@@ -24,6 +24,7 @@
 <body>
 {% block body %}
 <div id="content">
+    <input type="text" id="new_post" />
     <div id="feed"></div>
 </div>
 {% endblock body %}

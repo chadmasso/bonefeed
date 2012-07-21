@@ -1,17 +1,20 @@
 $(function(){
 
-
     var Post = Backbone.Model.extend({
         url: '/post',
         defaults: function() {
             return {
-                id: 0,
+                _id: 0,
                 text: ""
             };
         },
 
         clear: function() {
             this.destroy();
+        },
+
+        parse: function(response) {
+            return response;
         }
 
     });
@@ -23,6 +26,7 @@ $(function(){
         model: Post,
 
         parse: function(response) {
+            console.log(response.posts);
             return response.posts;
         }
 
@@ -54,7 +58,12 @@ $(function(){
 
         el: $("#content"),
 
+        events: {
+            "keypress #new_post":  "createOnEnter"
+        },
+
         initialize: function() {
+            this.new_post_input = this.$('#new_post');
 
             Posts.bind('add', this.addOne, this);
             Posts.bind('reset', this.addAll, this);
@@ -74,6 +83,14 @@ $(function(){
 
         addAll: function() {
             Posts.each(this.addOne);
+        },
+
+        createOnEnter: function(e) {
+            if (e.keyCode != 13) { return; }
+            if (!this.new_post_input.val()){ return; }
+
+            Posts.create({text: this.new_post_input.val()});
+            this.new_post_input.val('');
         }
 
     });
