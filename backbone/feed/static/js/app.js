@@ -1,15 +1,6 @@
 $(function(){
 
     var Post = Backbone.Model.extend({
-    
-        base_url: function() {
-            var temp_url = Backbone.Model.prototype.url.call(this);
-            return (temp_url.charAt(temp_url.length - 1) == '/' ? temp_url : temp_url+'/');
-        },
-
-        url: function() {
-            return this.base_url();
-        },
 
         defaults: function() {
             return {
@@ -19,24 +10,15 @@ $(function(){
 
         clear: function() {
             this.destroy();
-        },
-
-        parse: function(response) {
-            return response;
         }
 
     });
 
     var PostCollection = Backbone.Collection.extend({
 
-        url: '/api/v1/post/',
+        urlRoot: '/api/v1/post/',
 
-        model: Post,
-
-        parse: function(response) {
-            console.log(response.objects);
-            return response.objects;
-        }
+        model: Post
 
     });
 
@@ -119,8 +101,6 @@ $(function(){
         }
 
     });
-
-
 
     var App = new AppView;
 

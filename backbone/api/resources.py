@@ -6,6 +6,7 @@ class PostResource(ModelResource):
     class Meta:
         queryset = Post.objects.all()
         resource_name = 'post'
+        always_return_data = True
         authorization = Authorization()
 
     def hydrate(self, bundle):
