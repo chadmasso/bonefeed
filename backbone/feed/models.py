@@ -1,5 +1,4 @@
 from django.db import models
-from django.views.decorators.http import require_http_methods
 
 class Post(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
@@ -8,3 +7,11 @@ class Post(models.Model):
 
     def __unicode__(self):
         return '[status] %s' % (self.text)
+
+class Comment(models.Model):
+    date_added = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+    post = models.ForeignKey(Post)
+
+    def __unicode__(self):
+        return '[comment] %s' % (self.text)

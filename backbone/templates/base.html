@@ -20,6 +20,13 @@
         <div class="view" >
             <span class="text"><%= text %></span>
             <input type="text" class="edit_text" value="<%= text %>" style="display:none">
+            <input type="button" class="fetch" value="fetch"/>
+        </div>
+    </script>
+
+    <script type="text/template" id="comment-template">
+        <div class="comment" style="margin-left:50px">
+            <span class="text"><%= text %></span>
         </div>
     </script>
 
@@ -30,6 +37,7 @@
     <input type="text" id="new_post" />
     <div id="feed"></div>
 </div>
+
 {% endblock body %}
 </body>
 </html>
